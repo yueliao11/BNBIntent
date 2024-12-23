@@ -1,142 +1,152 @@
 
-# BNBIntent 项目文档
+````
 
-## 1. 核心页面组件
-### 1.1 主页面 (app/page.tsx)
+#  Project Documentation
+
+## 1. Core Page Components
+### 1.1 Main Page (app/page.tsx)
 ```typescript
-主要功能：
-- 整合所有主要组件
-- 管理顾问聊天窗口状态
-- 实现响应式布局
-- 集成钱包连接功能
+Key Functions:
+- Integrates all major components
+- Manages advisor chat window state
+- Implements responsive layout
+- Integrates wallet connection functionality
 
-关键组件：
-- WalletOverview：钱包总览
-- PortfolioChart：投资组合图表
-- AssetAllocation：资产分配
-- AdvisorSelection：顾问选择
-- ConnectWallet：钱包连接
-- FloatingAdvisorChat：浮动顾问聊天
-1.2 钱包概览组件 (components/WalletOverview.tsx)
-Edit:
-README.md
+Key Components:
+- WalletOverview: Wallet overview
+- PortfolioChart: Portfolio chart
+- AssetAllocation: Asset allocation
+- AdvisorSelection: Advisor selection
+- ConnectWallet: Wallet connection
+- FloatingAdvisorChat: Floating advisor chat
+```
 
-主要功能：
-- 3D 饼图展示资产分布
-- 使用 ECharts-GL 实现高级可视化
-- 实时更新钱包余额
-- 显示资产价值变化
+### 1.2 Wallet Overview Component (components/WalletOverview.tsx)
+```typescript
+Key Functions:
+- 3D pie chart showing asset distribution
+- Advanced visualization using ECharts-GL
+- Real-time wallet balance updates
+- Display of asset value changes
 
-技术特点：
-- 使用参数方程实现 3D 效果
-- 支持交互式高亮和选中
-- 响应式设计适配
-1.3 资产分配组件 (components/AssetAllocation.tsx)
+Technical Features:
+- Uses parametric equations for 3D effects
+- Supports interactive highlighting and selection
+- Responsive design adaptation
+```
 
-主要功能：
-- 显示代币余额和价值
-- 集成 Moralis API 获取代币数据
-- 通过 Chainlink 获取历史价格
-- 自动刷新资产数据
+### 1.3 Asset Allocation Component (components/AssetAllocation.tsx)
+```typescript
+Key Functions:
+- Displays token balances and values
+- Integrates Moralis API for token data
+- Gets historical prices via Chainlink
+- Automatic asset data refresh
 
-关键特性：
-- 10分钟自动刷新
-- 支持价格历史图表
-- 错误处理和加载状态
-2. Web3 集成
-2.1 智能合约交互 Hook (hooks/useEthersContract.ts)
+Key Features:
+- 10-minute auto refresh
+- Price history chart support
+- Error handling and loading states
+```
 
-主要功能：
-- 管理钱包连接状态
-- 处理智能合约交互
-- 实现顾问解锁功能
-- 管理 ADV 代币支付
+## 2. Web3 Integration
+### 2.1 Smart Contract Interaction Hook (hooks/useEthersContract.ts)
+```typescript
+Key Functions:
+- Manages wallet connection state
+- Handles smart contract interactions
+- Implements advisor unlock functionality
+- Manages ADV token payments
 
-关键方法：
-- checkAccess：检查顾问访问权限
-- unlockAdvisor：解锁新顾问
-- 支持 MetaMask 事件监听
-2.2 其他重要 Hooks
+Key Methods:
+- checkAccess: Checks advisor access rights
+- unlockAdvisor: Unlocks new advisor
+- Supports MetaMask event listening
+```
 
+### 2.2 Other Important Hooks
 1. useAdvisorContract.ts
-- 管理顾问智能合约交互
-- 处理顾问相关的链上操作
+- Manages advisor smart contract interactions
+- Handles advisor-related on-chain operations
 
 2. useAssetHistory.ts
-- 获取资产价格历史数据
-- 处理数据格式化和缓存
+- Retrieves asset price history data
+- Handles data formatting and caching
 
 3. useMemeMarket.ts
-- 处理 Meme 市场相关功能
-- 管理 Meme 代币交易
-3. UI 组件库
+- Handles Meme market related functionality
+- Manages Meme token trading
 
-包含多个基础 UI 组件：
-- Card：卡片容器
-- Dialog：对话框
-- Button：按钮
-- Toast：通知提示
-等等...
+## 3. UI Component Library
+Includes multiple base UI components:
+- Card: Card container
+- Dialog: Dialog box
+- Button: Button
+- Toast: Notification tips
+etc...
 
-特点：
-- 基于 Radix UI
-- 支持深色模式
-- 完全类型安全
-- 可定制主题
-4. 数据流和状态管理
+Features:
+- Based on Radix UI
+- Supports dark mode
+- Fully type-safe
+- Customizable themes
 
-主要状态管理方式：
+## 4. Data Flow and State Management
+Main state management approaches:
 1. React Hooks
-- useState 管理本地状态
-- useEffect 处理副作用
-- 自定义 hooks 封装业务逻辑
+- useState for local state
+- useEffect for side effects
+- Custom hooks for business logic
 
-2. 上下文管理
-- WalletContext：钱包状态
-- ThemeContext：主题状态
-5. API 文档
-5.1 价格数据 API
-获取代币历史价格
+2. Context Management
+- WalletContext: Wallet state
+- ThemeContext: Theme state
 
+## 5. API Documentation
+### 5.1 Price Data API
+Get Token Historical Price
+
+```typescript
 POST /api/chainlink/historical-price
-请求参数：
-
+Request Parameters:
 
 {
-  "token": "string",     // 代币符号（例如：'BTC'）
-  "startTime": number,   // 起始时间戳（秒）
-  "endTime": number,     // 结束时间戳（秒）
-  "interval": string     // 时间间隔（'1h' 或 '1d'）
+  "token": "string",     // Token symbol (e.g., 'BTC')
+  "startTime": number,   // Start timestamp (seconds)
+  "endTime": number,     // End timestamp (seconds)
+  "interval": string     // Time interval ('1h' or '1d')
 }
-响应：
 
+Response:
 
 [
   {
-    "timestamp": number,  // 时间戳
-    "price": number      // 价格（USD）
+    "timestamp": number,  // Timestamp
+    "price": number      // Price (USD)
   }
 ]
-错误处理：
 
-如果发生错误，返回空数组 []
-需要配置 CRYPTOCOMPARE_API_KEY 环境变量
-5.2 AI 顾问聊天 API
-获取 AI 顾问回复
+Error Handling:
+Returns empty array [] if error occurs
+Requires CRYPTOCOMPARE_API_KEY environment variable
+```
 
+### 5.2 AI Advisor Chat API
+Get AI Advisor Response
+
+```typescript
 POST /api/chat
-请求参数：
-
+Request Parameters:
 
 {
-  "messages": [          // 聊天历史
+  "messages": [          // Chat history
     {
       "role": "user" | "assistant",
       "content": string
     }
   ],
-  "advisorType": string, // 顾问类型
-  "assets": [            // 当前资产组合（可选）
+  "advisorType": string, // Advisor type
+  "assets": [            // Current asset portfolio (optional)
     {
       "name": string,
       "symbol": string,
@@ -145,85 +155,93 @@ POST /api/chat
     }
   ]
 }
-顾问类型：
 
-conservative: 保守型投资顾问
-专注稳定收益和风险管理
-推荐成熟的 DeFi 协议
-提供稳定币策略
-growth: 增长型投资顾问
-关注市值前 20 的加密货币
-分析市场趋势
-提供投资组合配置建议
-quantitative: 量化交易顾问
-技术分析专家
-识别交易机会
-提供风险管理技巧
-meme: Meme 代币专家
-分析社交媒体趋势
-评估代币经济模型
-提供高风险高回报机会分析
-响应：
+Advisor Types:
 
-Edit:
-README.md
-+175
--153
- 191
-Preview
-Apply
+conservative: Conservative Investment Advisor
+- Focuses on stable returns and risk management
+- Recommends mature DeFi protocols
+- Provides stablecoin strategies
+
+growth: Growth Investment Advisor
+- Focuses on top 20 cryptocurrencies by market cap
+- Analyzes market trends
+- Provides portfolio allocation advice
+
+quantitative: Quantitative Trading Advisor
+- Technical analysis expert
+- Identifies trading opportunities
+- Provides risk management techniques
+
+meme: Meme Token Expert
+- Analyzes social media trends
+- Evaluates token economics
+- Provides high-risk high-reward opportunity analysis
+
+Response:
+
 {
-  "message": string  // AI 顾问的回复内容
+  "message": string  // AI advisor's response content
 }
-错误响应：
 
+Error Response:
 
 {
   "error": "Internal server error"
 }
-5.3 市场数据 API
-CoinCap API 集成
+```
 
+### 5.3 Market Data API
+CoinCap API Integration
+```typescript
 /api/coincap/
-用于获取实时市场数据和价格信息
+For real-time market data and price information
+```
 
-CryptoCompare API 集成
-
+CryptoCompare API Integration
+```typescript
 /api/cryptocompare/
-用于获取更详细的市场数据和交易信息
+For more detailed market data and trading information
+```
 
-Meme 市场 API
-
+Meme Market API
+```typescript
 /api/meme/
-专门用于 Meme 代币市场的数据和分析
+Specifically for Meme token market data and analysis
+```
 
-6. 环境变量配置
-项目需要配置以下环境变量：
+## 6. Environment Variables Configuration
+Project requires the following environment variables:
+```typescript
+CRYPTOCOMPARE_API_KEY=   # CryptoCompare API key
+OPENAI_API_KEY=         # OpenAI API key
+COINCAP_API_KEY=        # CoinCap API key
+```
 
+## 7. API Usage Guidelines
+### 7.1 Error Handling
+- All API calls should include proper error handling
+- Use try-catch blocks to catch potential exceptions
+- Check response status and data integrity
 
-CRYPTOCOMPARE_API_KEY=   # CryptoCompare API 密钥
-OPENAI_API_KEY=         # OpenAI API 密钥
-COINCAP_API_KEY=        # CoinCap API 密钥
-7. API 使用建议
-7.1 错误处理
-所有 API 调用都应该包含适当的错误处理
-使用 try-catch 块捕获可能的异常
-检查响应状态和数据完整性
-7.2 速率限制
-注意各个第三方 API 的速率限制
-实现适当的缓存机制
-避免频繁的 API 调用
-7.3 数据验证
-验证所有输入参数
-检查数据类型和格式
-处理边界情况
-7.4 安全性
-不要在前端暴露 API 密钥
-实现适当的认证机制
-保护敏感数据
-8. 示例代码
-获取历史价格数据：
+### 7.2 Rate Limiting
+- Be aware of third-party API rate limits
+- Implement appropriate caching mechanisms
+- Avoid frequent API calls
 
+### 7.3 Data Validation
+- Validate all input parameters
+- Check data types and formats
+- Handle edge cases
+
+### 7.4 Security
+- Don't expose API keys in frontend
+- Implement proper authentication mechanisms
+- Protect sensitive data
+
+## 8. Example Code
+Get Historical Price Data:
+```typescript
 const response = await fetch('/api/chainlink/historical-price', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
@@ -236,13 +254,15 @@ const response = await fetch('/api/chainlink/historical-price', {
 });
 
 const prices = await response.json();
-使用 AI 顾问：
+```
 
+Using AI Advisor:
+```typescript
 const response = await fetch('/api/chat', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    messages: [{ role: 'user', content: '如何优化我的 DeFi 投资组合？' }],
+    messages: [{ role: 'user', content: 'How to optimize my DeFi portfolio?' }],
     advisorType: 'conservative',
     assets: [
       {
@@ -256,4 +276,4 @@ const response = await fetch('/api/chat', {
 });
 
 const { message } = await response.json();
-
+```
