@@ -10,6 +10,7 @@ Key Functions:
 - Manages advisor chat window state
 - Implements responsive layout
 - Integrates wallet connection functionality
+- BNB Chain Power support
 
 Key Components:
 - WalletOverview: Wallet overview
